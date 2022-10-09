@@ -1,12 +1,16 @@
 import React from "react";
 import { List, ListItem, ListItemText, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useFormikContext } from "formik";
 
 export default function FileList({ file, setFile }) {
+  const { setFieldValue } = useFormikContext();
+
   const handleChangeDeleteAction = (ind) => {
     var item = file[ind];
     let nwArr = file.filter((e) => e !== item);
     setFile(nwArr);
+    setFieldValue("support", nwArr);
   };
   return (
     <div>

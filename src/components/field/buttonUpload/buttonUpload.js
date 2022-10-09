@@ -1,17 +1,21 @@
 import React from "react";
 import { Typography, Stack, Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import { useFormikContext } from "formik";
 
 const Input = styled("input")({
   display: "none",
 });
 
 export default function ButtonUpload({ file, setFile }) {
+  const { setFieldValue } = useFormikContext();
+
   const handleChangeFile = ({ target }) => {
     const fileReader = new FileReader();
     const name = target.accept.includes("PDF") ? "pdf" : "image";
     fileReader.readAsDataURL(target.files[0]);
     setFile((file) => [...file, target.files[0]]);
+    setFieldValue("support", [...file, target.files[0]]);
   };
   return (
     <>

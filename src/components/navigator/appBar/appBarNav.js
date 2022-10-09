@@ -12,6 +12,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import AppDrawer from "../appDrawer";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../../../utils/theme";
+import { user } from "../../../utils/user";
 
 export default function AppBarNav() {
   const [state, setState] = useState(false);
@@ -56,7 +57,7 @@ export default function AppBarNav() {
             size="small"
             sx={{ ml: 4, width: "10%", height: "2em", fontSize: 11 }}
             component={Link}
-            to="/case"
+            to={user[1].level === 2 ? "/request" : "/case"}
           >
             New Case
           </Button>

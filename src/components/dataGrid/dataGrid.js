@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
+import { useNavigate } from "react-router-dom";
 import columnsMe from "../table/columnsMe/columnsMe";
 
-export default function DataGrids({ dataRow }) {
+export default function DataGrids({ data }) {
   const [selectedRow, setSelectedRow] = useState();
-  const [rows, setRows] = useState([]);
+  const navigate = useNavigate();
+
   return (
     <DataGrid
-      rows={rows}
+      rows={data}
       columns={columnsMe}
       rowHeight={30}
       headerHeight={30}
@@ -15,13 +17,14 @@ export default function DataGrids({ dataRow }) {
         fontSize: 12,
       }}
       pageSize={100}
-      //   onSelectionModelChange={(ids) => {
-      //     const selectedIds = new Set(ids);
-      //     const selectedRows = dataRow.filter((row) => selectedIds.has(row.id));
+      loading={data.length > 0 ? false : true}
+      onSelectionModelChange={(ids) => {
+        const selectedIds = new Set(ids);
+        const selectedRows = data.filter((row) => selectedIds.has(row.id));
 
-      //     setSelectedRow(selectedRows);
-      //   }}
-      //onCellDoubleClick={handleOpen}
+        setSelectedRow(selectedRows);
+      }}
+      onCellDoubleClick={() => navigate("/request", { state: selectedRow })}
     />
   );
 }
